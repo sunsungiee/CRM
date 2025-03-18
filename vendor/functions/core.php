@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 
 $conn = new mysqli("localhost", "root", "", "CRM");
@@ -12,6 +13,4 @@ function redirect($path)
     header("Location: $path");
 }
 
-function userSession(){
-    
-}
+function userSession() {}

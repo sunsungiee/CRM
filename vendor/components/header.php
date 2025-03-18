@@ -1,5 +1,4 @@
 <?php
-session_start();
 require "{$_SERVER["DOCUMENT_ROOT"]}/vendor/functions/core.php";
 
 if (isset($_SESSION['user'])) {

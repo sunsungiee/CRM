@@ -19,13 +19,19 @@ body {
     margin: auto;
 }
 
+:root {
+    --main: rgba(144, 0, 210, 0.071);
+    --details: rgb(121, 0, 177);
+    /* -- btn-bg: ; */
+}
+
 a {
-    color: rgb(121, 0, 177);
+    color: var(--details);
 }
 
 /* оформление боковой навигации */
 .side_bar_menu {
-    background-color: rgba(144, 0, 210, 0.071);
+    background-color: var(--main);
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -123,7 +129,7 @@ a {
 }
 
 .tasks_table th {
-    background-color: rgba(144, 0, 210, 0.071);
+    background-color: var(--main);
 }
 
 .tasks_table th,
@@ -136,7 +142,7 @@ a {
     display: none;
     position: fixed;
     z-index: 1;
-    padding-top: 100px;
+    padding-top: 80px;
     left: 0;
     top: 0;
     width: 100%;
@@ -150,7 +156,8 @@ a {
     margin: auto;
     width: 50vh;
     background-color: white;
-    padding: 20px;
+    padding: 25px;
+    border-radius: 5px;
 }
 
 #close_modal {
@@ -168,11 +175,13 @@ a {
 }
 
 .add_select,
-.add_input {
+.add_input,
+.add_textarea {
     width: 100%;
     border: none;
     font-size: 16px;
-    padding: 5px 10px
+    padding: 5px 10px;
+    resize: block;
 }
 
 .add_select:active,
@@ -189,4 +198,26 @@ a {
 .add_form fieldset {
     padding: 5px;
     margin: 10px 0;
+}
+
+.close_btn {
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+}
+
+.add_btn {
+    padding: 8px;
+    display: block;
+    width: 100%;
+    margin: auto;
+    cursor: pointer;
+    background-color: rgb(119 38 158 / 81%);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+}
+
+.add_btn:hover {
+    background-color: rgb(99 1 145 / 85%);
 }
