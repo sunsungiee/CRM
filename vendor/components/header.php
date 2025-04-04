@@ -35,7 +35,7 @@ if (isset($_SESSION['user'])) {
                     <h2 style="width: fit-content;"> CRM</h2>
                 </div>
                 <ul>
-                    <li><a href="homepage.php">Рабочий стол</a></li>
+                    <!-- <li><a href="homepage.php">Рабочий стол</a></li> -->
                     <li><a href="analytics.php">Аналитика</a></li>
                     <li class="tasks" id="task_button"><a href="#">Задачи</a>
                         <div class="tasks_menu" id="tasks_menu">
@@ -46,9 +46,9 @@ if (isset($_SESSION['user'])) {
                         </div>
                     </li>
 
-                    <li><a href="dealings.php">Сделки</a></li>
+                    <li><a href="deals.php">Сделки</a></li>
                     <li><a href="contacts.php">Контакты</a></li>
-                    <li><a href="chats.php">Чаты</a></li>
+                    <!-- <li><a href="chats.php">Чаты</a></li> -->
                 </ul>
             </div>
             <ul>

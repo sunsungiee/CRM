@@ -26,7 +26,7 @@ INNER JOIN users u ON t.user_id = u.id
 INNER JOIN contacts c ON t.contact_id = c.id
 INNER JOIN priorities p ON t.priority_id = p.id
 INNER JOIN statuses s ON t.status_id = s.id
-WHERE s.id = '1'
+WHERE s.id = '1' AND user_id = '{$_SESSION['user']['id']}'
 ORDER BY " . ($sort_column === 'task_date' ? 't.date' : $sort_column) . " $sort_order";
 
 $tasks = $conn->query($tasks_sql);

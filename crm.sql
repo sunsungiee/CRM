@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 28 2025 г., 09:13
+-- Время создания: Апр 04 2025 г., 22:49
 -- Версия сервера: 8.0.19
 -- Версия PHP: 8.0.1
 
@@ -51,12 +51,59 @@ CREATE TABLE `contacts` (
 --
 
 INSERT INTO `contacts` (`id`, `surname`, `name`, `email`, `phone`, `firm`) VALUES
-(1, 'Васильев', 'Василий', 'vas@mail', '890128563948', ''),
+(1, 'Васильев', 'Василий', 'vas@mail', '+7(487)-484-49-74', ''),
 (2, 'Васильев', 'Григорий', 'aaa@tt', '890128567948', ''),
 (3, 'Антонов', 'Антон', 'anton@tt', '84629573847', ''),
 (4, 'Федоров', 'Федор', 'fedya@tt', '73947285483', ''),
 (5, '', '', '', '', ''),
-(6, 'Иванов', 'Иван', 'ivan3984@tt', '+7(373)-987-39-83', 'ИП Иванов');
+(6, 'Иванов', 'Иван', 'ivan3984@tt', '+7(373)-987-39-83', 'ИП Иванов'),
+(7, 'Сергеев', 'аа', 'ivan3984@tt', '4444444', 'ввв');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `deals`
+--
+
+CREATE TABLE `deals` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `client_id` int NOT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `end_date` date NOT NULL,
+  `end_time` time NOT NULL,
+  `sum` int NOT NULL,
+  `phase_id` int NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `deals`
+--
+
+INSERT INTO `deals` (`id`, `user_id`, `client_id`, `subject`, `end_date`, `end_time`, `sum`, `phase_id`) VALUES
+(1, 6, 5, 'Продажа', '2025-04-30', '12:32:31', 1000, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `deal_phases`
+--
+
+CREATE TABLE `deal_phases` (
+  `id` int NOT NULL,
+  `phase` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `deal_phases`
+--
+
+INSERT INTO `deal_phases` (`id`, `phase`) VALUES
+(1, 'Новое'),
+(2, 'Уточнение деталей'),
+(3, 'Подтверждена'),
+(4, 'Совершена'),
+(5, 'Отменена');
 
 -- --------------------------------------------------------
 
@@ -143,7 +190,14 @@ INSERT INTO `tasks` (`id`, `user_id`, `contact_id`, `subject`, `description`, `d
 (1, 3, 2, 'тест', 'тест', '2025-03-25', '00:00:00', 1, 1),
 (29, 3, 4, 'Деловая встреча', 'Встреча с заказчиком', '2025-03-31', '00:00:00', 1, 1),
 (31, 3, 1, 'оаошао', 'оалшао', '8444-04-04', '00:00:00', 3, 1),
-(33, 3, 3, '12', '12', '2025-03-28', '17:24:00', 1, 1);
+(33, 3, 3, '12', '12', '2025-03-28', '17:24:00', 1, 1),
+(34, 6, NULL, 'd', 'd', NULL, NULL, 1, 1),
+(35, 6, NULL, 'в', 'в', NULL, NULL, 1, 1),
+(36, 6, NULL, 'к', 'к', NULL, NULL, 1, 1),
+(37, 6, 2, 'в', 'в', '2025-04-10', '00:24:00', 1, 2),
+(38, 6, 2, 'tgg', 'gjh', '2222-03-31', '03:59:00', 1, 2),
+(39, 6, NULL, 'd', 'd', '2025-04-09', '04:15:00', 1, 1),
+(40, 6, 2, 'Встреча с заказчиком', 'Встреча', '2025-04-17', '17:15:00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -170,7 +224,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `surname`, `name`, `post`, `phone`, `email`, `login`, `password`, `role_id`) VALUES
 (3, 'Иванов', 'Иван', 'Директор', '398749847948', 'ivan@tt', 'ivan123', 'ivan', 1),
 (4, 'Сергеев', 'Сергей', 'Ген. директор', '838798749487', 'SERGEY@TT', 'user123', 'user123', 1),
-(5, 'Аленова', 'Алена', '333', '9749847847', 'alena@tt', 'alena', '333', 1);
+(5, 'Аленова', 'Алена', '333', '9749847847', 'alena@tt', 'alena', '333', 1),
+(6, '', '', '', '', '', 'user', 'user', 1);
 
 --
 -- Индексы сохранённых таблиц
@@ -186,6 +241,21 @@ ALTER TABLE `archive`
 -- Индексы таблицы `contacts`
 --
 ALTER TABLE `contacts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `deals`
+--
+ALTER TABLE `deals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `client_id` (`client_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `phase_id` (`phase_id`);
+
+--
+-- Индексы таблицы `deal_phases`
+--
+ALTER TABLE `deal_phases`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -237,7 +307,19 @@ ALTER TABLE `archive`
 -- AUTO_INCREMENT для таблицы `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT для таблицы `deals`
+--
+ALTER TABLE `deals`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT для таблицы `deal_phases`
+--
+ALTER TABLE `deal_phases`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `priorities`
@@ -261,17 +343,25 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT для таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
+
+--
+-- Ограничения внешнего ключа таблицы `deals`
+--
+ALTER TABLE `deals`
+  ADD CONSTRAINT `deals_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `contacts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `deals_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `deals_ibfk_3` FOREIGN KEY (`phase_id`) REFERENCES `deal_phases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `tasks`

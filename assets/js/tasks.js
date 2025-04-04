@@ -50,11 +50,22 @@ $(document).ready(function () {
                     <td class="editable" data-id="${task.task_id}" data-field="subject">${escapeHtml(task.task_subject)}</td>
                     <td class="editable" data-id="${task.task_id}" data-field="description">${escapeHtml(task.task_description)}</td>
                     <td class="editable-select" data-id="${task.task_id}" data-field="contact_id">${escapeHtml(task.contact_surname)}</td>
-                    <td class="editable-date" data-id="${task.task_id}" data-field="date">${escapeHtml(task.task_date)}</td>
-                    <td class="editable-time" data-id="${task.task_id}" data-field="time">${escapeHtml(task.task_time)}</td>
+                    <td class="editable-date" data-id="${task.task_id}" data-field="date">
+                    ${task.task_date || 'Не указана'}
+                </td>
+                <td class="editable-time" data-id="${task.task_id}" data-field="time">
+                    ${task.task_time || 'Не указано'}
+                </td>
                     <td class="editable-select" data-id="${task.task_id}" data-field="priority_id">${escapeHtml(task.priority)}</td>
                     <td class="editable-select" data-id="${task.task_id}" data-field="status_id">${escapeHtml(task.status)}</td>
-                </tr>
+                <td class="actions">
+                                    <form action="" method="post">
+                                        <button class="btn-delete" name="task_id" value="${task.task_id}">
+                                            <i class="fas fa-trash-alt"></i> Удалить
+                                        </button>
+                                    </form>
+                </td>
+                    </tr>
             `);
             tbody.append(tr);
         });
@@ -156,7 +167,7 @@ $(document).ready(function () {
     // Редактирование даты
     $(document).on('dblclick', '.editable-date', function () {
         const $cell = $(this);
-        const currentDate = $cell.text().trim();
+        const currentDate = $cell.text().trim() === 'Не указана' ? '' : $cell.text().trim();
         const id = $cell.data('id');
         const field = $cell.data('field');
 
@@ -180,7 +191,7 @@ $(document).ready(function () {
     // Редактирование времени
     $(document).on('dblclick', '.editable-time', function () {
         const $cell = $(this);
-        const currentTime = $cell.text().trim();
+        const currentTime = $cell.text().trim() === 'Не указано' ? '' : $cell.text().trim();
         const id = $cell.data('id');
         const field = $cell.data('field');
 
@@ -205,52 +216,7 @@ $(document).ready(function () {
     }
 
     // Сохранение изменений
-    // function saveChanges($cell, id, field, value, oldValue, displayValue = null) {
-    //     $.ajax({
-    //         url: '../../vendor/functions/update_task.php',
-    //         type: 'POST',
-    //         dataType: 'json',
-    //         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-    //         data: {
-    //             id: id,
-    //             field: field,
-    //             value: value
-    //         },
-    //         success: function (response) {
-    //             // Проверяем, что ответ - валидный JSON
-    //             if (response && response.success) {
-    //                 $cell.text(displayValue || value);
-    //             } else {
-    //                 const errorMsg = response?.error || 'Неизвестная ошибка сервера';
-    //                 console.error('Server Error:', response);
-    //                 alert(errorMsg);
-    //                 $cell.text(oldValue);
-    //             }
-    //         },
-    //         error: function (xhr, status, error) {
-    //             let serverResponse = xhr.responseText;
-
-    //             // Если сервер вернул HTML вместо JSON
-    //             if (serverResponse.startsWith('<')) {
-    //                 serverResponse = 'Сервер вернул HTML вместо JSON. Проверьте ошибки PHP.';
-    //             }
-
-    //             console.error('AJAX Error:', {
-    //                 Status: status,
-    //                 Error: error,
-    //                 Response: serverResponse
-    //             });
-
-    //             alert('Ошибка соединения: ' + serverResponse);
-    //             $cell.text(oldValue);
-    //         }
-    //     });
-    // }
-
     function saveChanges($cell, id, field, value, oldValue, displayValue = null) {
-        // Преобразуем пустые значения в 'null' для сервера
-        const sendValue = (value === '' || value === null) ? 'null' : value;
-
         $.ajax({
             url: '../../vendor/functions/update_task.php',
             type: 'POST',
@@ -259,24 +225,72 @@ $(document).ready(function () {
             data: {
                 id: id,
                 field: field,
-                value: sendValue
+                value: value
             },
             success: function (response) {
-                if (response?.success) {
-                    // Обработка NULL от сервера
-                    const display = response.updatedValue === null ? '' : (displayValue || response.updatedValue);
-                    $cell.text(display);
+                // Проверяем, что ответ - валидный JSON
+                if (response && response.success) {
+                    $cell.text(displayValue || value);
                 } else {
-                    showError(response?.error || 'Ошибка обновления');
+                    const errorMsg = response?.error || 'Неизвестная ошибка сервера';
+                    console.error('Server Error:', response);
+                    alert(errorMsg);
                     $cell.text(oldValue);
                 }
             },
-            error: function (xhr) {
-                showError(xhr.responseText || 'Ошибка соединения');
+            error: function (xhr, status, error) {
+                let serverResponse = xhr.responseText;
+
+                // Если сервер вернул HTML вместо JSON
+                if (serverResponse.startsWith('<')) {
+                    serverResponse = 'Сервер вернул HTML вместо JSON. Проверьте ошибки PHP.';
+                }
+
+                console.error('AJAX Error:', {
+                    Status: status,
+                    Error: error,
+                    Response: serverResponse
+                });
+
+                // alert('Ошибка соединения: ' + serverResponse);
+                location.reload();
                 $cell.text(oldValue);
             }
         });
     }
+
+    // function saveChanges($cell, id, field, value, oldValue, displayValue = null) {
+    //     // Преобразуем пустые значения в 'null' для сервера
+    //     if (value === '' || value === 'Не указана' || value === 'Не указано') {
+    //         value = null;
+    //     }
+
+    //     $.ajax({
+    //         url: '../../vendor/functions/update_task.php',
+    //         type: 'POST',
+    //         dataType: 'json',
+    //         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+    //         data: {
+    //             id: id,
+    //             field: field,
+    //             value: sendValue
+    //         },
+    //         success: function (response) {
+    //             if (response?.success) {
+    //                 // Обработка NULL от сервера
+    //                 const display = response.updatedValue === null ? '' : (displayValue || response.updatedValue);
+    //                 $cell.text(display);
+    //             } else {
+    //                 showError(response?.error || 'Ошибка обновления');
+    //                 $cell.text(oldValue);
+    //             }
+    //         },
+    //         error: function (xhr) {
+    //             showError(xhr.responseText || 'Ошибка соединения');
+    //             $cell.text(oldValue);
+    //         }
+    //     });
+    // }
 
     function showError(message) {
         console.error('Error:', message);

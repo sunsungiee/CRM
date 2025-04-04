@@ -15,7 +15,7 @@ if ($_POST) {
 
         if ($reg) {
             $_SESSION['user'] = $user;
-            redirect("homepage.php");
+            redirect("analytics.php");
         } else {
             $error_msg = "Ошибка регистрации";
         }

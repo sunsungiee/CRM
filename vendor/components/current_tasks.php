@@ -17,7 +17,7 @@ INNER JOIN users u ON t.user_id = u.id
 INNER JOIN contacts c ON t.contact_id = c.id
 INNER JOIN priorities p ON t.priority_id = p.id
 INNER JOIN statuses s ON t.status_id = s.id
-WHERE s.id = '1'
+WHERE s.id = '1' AND user_id = '{$_SESSION['user']['id']}'
 ORDER BY task_date";
 
     $tasks = $conn->query($tasks_sql);
@@ -25,6 +25,13 @@ ORDER BY task_date";
     $contacts = $conn->query("SELECT * FROM `contacts`");
     $priorities = $conn->query("SELECT * FROM `priorities`");
     $statuses = $conn->query("SELECT * FROM `statuses`");
+
+    if (isset($_POST['task_id'])) {
+        $res = $conn->query("DELETE FROM `tasks` WHERE `id` = '{$_POST['task_id']}'");
+        if ($res) {
+            redirect("current_tasks.php");
+        }
+    }
 } else {
     redirect("../../index.php");
 }
@@ -50,17 +57,16 @@ ORDER BY task_date";
                         <th data-column="time">Время</th>
                         <th data-column="priority">Приоритет</th>
                         <th data-column="status">Статус</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     if ($tasks) {
                         foreach ($tasks as $task) {
-
-
-                            echo "<pre>";
-                            print_r($task); // Покажет всю структуру данных
-                            echo "</pre>";
+                            // echo "<pre>";
+                            // print_r($task); // Покажет всю структуру данных
+                            // echo "</pre>";
                     ?>
 
                             <tr>
@@ -71,6 +77,13 @@ ORDER BY task_date";
                                 <td><?= $task['task_time'] ?></td>
                                 <td class="editable-select"><?= $task['priority'] ?> </td>
                                 <td class="editable-select"><?= $task['status'] ?></td>
+                                <td class="actions">
+                                    <form action="" method="post">
+                                        <button class="btn-delete" name="task_id" value="<?= $task['task_id']; ?>">
+                                            <i class="fas fa-trash-alt"></i> Удалить
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                     <?php
 

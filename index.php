@@ -6,7 +6,7 @@ if ($_POST) {
     $res = $conn->query("SELECT * FROM `users` WHERE `login` = '{$_POST['login']}' and `password` = '{$_POST['password']}'");
     if ($res && $res->num_rows > 0) {
         $_SESSION['user'] = $res->fetch_assoc();
-        redirect("vendor/components/homepage.php");
+        redirect("vendor/components/analytics.php");
     } else {
         $error_msg = "Пользователь не найден";
     }

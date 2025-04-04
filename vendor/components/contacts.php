@@ -3,6 +3,12 @@ require "{$_SERVER["DOCUMENT_ROOT"]}/vendor/components/header.php";
 
 $contacts = $conn->query("SELECT * FROM `contacts`");
 
+if (isset($_POST['contact_id'])) {
+    $res = $conn->query("DELETE FROM `contacts` WHERE `id` = '{$_POST['contact_id']}'");
+    if ($res) {
+        redirect("contacts.php");
+    }
+}
 ?>
 
 <div class="content tasks">
@@ -12,74 +18,53 @@ $contacts = $conn->query("SELECT * FROM `contacts`");
     </div>
 
     <hr>
-    <table class="tasks_table">
-        <tr>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Номер телефона</th>
-            <th>Эл. почта</th>
-            <th>Организация</th>
-        </tr>
-        <tr>
-            <?php
-            foreach ($contacts as $contact) {
-            ?>
-        <tr>
-            <td><?= $contact['surname'] ?></td>
-            <td><?= $contact['name'] ?></td>
-            <td><?= $contact['phone'] ?></td>
-            <td><?= $contact['email'] ?></td>
-            <td><?= $contact['firm'] ?></td>
-        </tr>
-    <?php
-            }
-    ?>
+    <table class="tasks_table" id="contacts_table">
+        <thead>
+            <tr>
+                <th data-column="surname">Фамилия</th>
+                <th data-column="name">Имя</th>
+                <th data-column="phone">Номер телефона</th>
+                <th data-column="email">Эл. почта</th>
+                <th data-column="firm">Организация</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <?php
+                foreach ($contacts as $contact) {
+                ?>
+            <tr data-id="<?= $contact['id'] ?>">
+                <td class="editable" data-field="surname"><?= $contact['surname'] ?></td>
+                <td class="editable" data-field="name"><?= $contact['name'] ?></td>
+                <td class="editable" data-field="phone"><?= $contact['phone'] ?></td>
+                <td class="editable" data-field="email"><?= $contact['email'] ?></td>
+                <td class="editable" data-field="firm"><?= $contact['firm'] ?></td>
+                <td class="actions">
+                    <form action="" method="post">
+                        <button class="btn-delete" name="contact_id" value="<?= $contact['id']; ?>">
+                            <i class="fas fa-trash-alt"></i> Удалить
+                        </button>
+                    </form>
+                </td>
+            </tr>
 
-
-    </tr>
+        <?php
+                }
+        ?>
+        </tbody>
     </table>
 </div>
 </div>
 </main>
-
-<div class="modal" id="modal">
-    <div class="modal_content">
-        <form action="../functions/contact_handler.php" method="post" class="add_form">
-            <div class="modal_header">
-                <p id="modal_header_title">Новый контакт</p>
-                <button class="close_btn" type="reset"><img src="../../assets/img/icons/close.png" alt="" id="close_modal"></button>
-            </div>
-            <hr style="width: 70%; margin:10px 0">
-
-            <fieldset>
-                <legend>Фамилия</legend>
-                <input type="text" name="contact_surname" class="add_input add" required>
-            </fieldset>
-
-            <fieldset>
-                <legend>Имя</legend>
-                <input type="text" name="contact_name" class="add_input add" required>
-            </fieldset>
-
-            <fieldset>
-                <legend>Номер телефона</legend>
-                <input type="text" name="contact_phone" id="phone" class="add_input add" required>
-            </fieldset>
-
-            <fieldset>
-                <legend>Эл. почта</legend>
-                <input type="email" name="contact_email" class="add_input add" required>
-            </fieldset>
-
-            <fieldset>
-                <legend>Организация</legend>
-                <input type="text" name="contact_firm" class="add_input add" required>
-            </fieldset>
-            <button class="add_btn" type="submit">Добавить</button>
-        </form>
-    </div>
-    <script src="../../assets/js/jquery-3.7.1.min.js"></script>
-    <script src="../../assets/js/jquery.maskedinput.min.js"></script>
-    <script src="../../assets/js/script.js"></script>
-
-    </body>
+<?php
+include "contacts_modal.php";
+?>
+<script src="../../assets/js/jquery-3.7.1.min.js"></script>
+<script src="../../assets/js/jquery.maskedinput.min.js"></script>
+<script src="../../assets/js/script.js"></script>
+<script src="../../assets/js/contacts.js"></script>
+<script>
+    $('#phone').mask("+7(999)-999-99-99");
+</script>
+</body>

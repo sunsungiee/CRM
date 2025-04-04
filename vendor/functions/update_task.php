@@ -3,7 +3,10 @@ require 'core.php';
 
 $id = $_POST['id'];
 $field = $_POST['field'];
-$value = $_POST['value'];
+$value = $_POST['value'] ?? null;
+if ($value === '') {
+    $value = null; // Преобразуем пустую строку в NULL
+}
 
 // Валидация полей
 $allowed_fields = ['subject', 'description', 'date', 'time', 'priority_id', 'status_id', 'contact_id'];
@@ -21,7 +24,7 @@ try {
     switch ($field) {
         case 'date':
             // Преобразуем дату из формата YYYY-MM-DD в DATETIME
-            $value = $value ? date('Y-m-d', strtotime($value)) : null;
+            $value = ($value && $value !== '') ? date('Y-m-d', strtotime($value)) : null;
             $stmt = $conn->query("UPDATE tasks SET date = '$value' WHERE id = '$id'");
             break;
 
