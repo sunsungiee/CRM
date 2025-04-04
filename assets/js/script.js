@@ -21,8 +21,7 @@ var taskDate = document.getElementById("task_date");
 
 var today = new Date().toISOString().split('T')[0];
 
-if(taskDate){
+if (taskDate) {
     taskDate.setAttribute('min', today);
 }
 
-$('#phone').mask("+7(999)-999-99-99");

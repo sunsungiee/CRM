@@ -14,14 +14,18 @@ body {
     background-color: rgba(144, 0, 210, 0.042);
 }
 
+main {
+    display: flex;
+}
+
 .container {
     width: 500px;
     margin: auto;
 }
 
 :root {
-    --main: rgba(144, 0, 210, 0.071);
-    --details: rgb(121, 0, 177);
+    --main: rgba(83, 0, 151, 0.071);
+    --details: rgb(30, 1, 133);
     /* -- btn-bg: ; */
 }
 
@@ -32,7 +36,6 @@ a {
 /* оформление боковой навигации */
 .side_bar_menu {
     background-color: var(--main);
-    position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -50,7 +53,8 @@ a {
 }
 
 .content {
-    padding: 2vh 5vh 0 43vh;
+    padding: 2vh 5vh 0 1vh;
+    width: 100%;
 }
 
 /* оформление формы авторизации/регистрации */
@@ -60,7 +64,7 @@ a {
     flex-direction: column;
     gap: 20px;
     padding: 40px;
-    background-color: rgba(76, 0, 112, 0.693);
+    background-color: rgba(30, 0, 112, 0.693);
     border-radius: 6px;
     margin: 15vh 0;
 }
@@ -130,6 +134,8 @@ a {
 
 .tasks_table th {
     background-color: var(--main);
+    cursor: pointer;
+    user-select: none;
 }
 
 .tasks_table th,
@@ -211,7 +217,7 @@ a {
     width: 100%;
     margin: auto;
     cursor: pointer;
-    background-color: rgb(119 38 158 / 81%);
+    background-color: rgba(60, 38, 158, 0.81);
     border: none;
     border-radius: 5px;
     color: white;
@@ -219,19 +225,23 @@ a {
 }
 
 .add_btn:hover {
-    background-color: rgb(99 1 145 / 85%);
+    background-color: rgba(51, 1, 145, 0.85);
 }
 
 .content_tasks {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     gap: 100px;
 }
 
-.tasks {
-    position: relative;
+.tasks_menu {
+    padding: 0 0 0 20px;
+    display: none;
 }
 
-.tasks_menu {
-    position: absolute;
+.tasks_menu li {
+    padding: 2px 8px;
+    border-radius: 20px;
+    background-color: white;
 }

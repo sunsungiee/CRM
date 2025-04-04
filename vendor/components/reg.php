@@ -47,7 +47,7 @@ if ($_POST) {
             <input type="text" name="surname" placeholder="Фамилия">
             <input type="text" name="name" placeholder="Имя">
             <input type="text" name="post" placeholder="Должность">
-            <input type="text" name="phone" placeholder="Телефон">
+            <input type="text" name="phone" id="phone" placeholder="Телефон">
             <input type="email" name="email" placeholder="Эл. почта">
             <input type="text" name="login" placeholder="Логин пользователя">
             <input type="password" name="password" placeholder="Пароль">
@@ -63,6 +63,12 @@ if ($_POST) {
         </form>
     </div>
     </main>
+
+    <script src="../../assets/js/jquery-3.7.1.min.js"></script>
+    <script src="../../assets/js/jquery.maskedinput.min.js"></script>
+    <script>
+        $('#phone').mask("+7(999)-999-99-99");
+    </script>
 </body>
 
 </html>

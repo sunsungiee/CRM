@@ -25,7 +25,6 @@ if (isset($_SESSION['user'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 
-    <script src="../../assets/js/tasks_menu.js"></script>
 </head>
 
 <body>
@@ -38,12 +37,11 @@ if (isset($_SESSION['user'])) {
                 <ul>
                     <li><a href="homepage.php">Рабочий стол</a></li>
                     <li><a href="analytics.php">Аналитика</a></li>
-                    <li class="tasks"><a href="#">Задачи</a>
+                    <li class="tasks" id="task_button"><a href="#">Задачи</a>
                         <div class="tasks_menu" id="tasks_menu">
                             <ul>
-                                <li><a href="#">Текущие задачи</a></li>
-                                <li><a href="#">Истекшие задачи</a></li>
-                                <li><a href="#">Архив задач</a></li>
+                                <li><a href="current_tasks.php">Текущие задачи</a></li>
+                                <li><a href="acrchive.php">Архив задач</a></li>
                             </ul>
                         </div>
                     </li>
@@ -71,3 +69,11 @@ if (isset($_SESSION['user'])) {
                 </li>
             </ul>
         </nav>
+
+        <script src="../../assets/js/jquery-3.7.1.min.js"></script>
+        <script src="../../assets/js/jquery.maskedinput.min.js"></script>
+        <script>
+            $("#task_button").click(function() {
+                $("#tasks_menu").slideToggle(300); // 300ms - длительность анимации
+            });
+        </script>
