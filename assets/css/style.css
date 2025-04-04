@@ -221,3 +221,17 @@ a {
 .add_btn:hover {
     background-color: rgb(99 1 145 / 85%);
 }
+
+.content_tasks {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+}
+
+.tasks {
+    position: relative;
+}
+
+.tasks_menu {
+    position: absolute;
+}
