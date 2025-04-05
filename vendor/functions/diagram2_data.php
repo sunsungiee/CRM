@@ -6,7 +6,7 @@ $stats = $conn->query("SELECT
     COUNT(*) as total_deals,
     SUM(CASE WHEN phase_id = 4 THEN 1 ELSE 0 END) as completed,
     SUM(CASE WHEN phase_id != 4 THEN 1 ELSE 0 END) as not_completed
-FROM deals");
+FROM deals where `user_id` = '{$_SESSION['user']['id']}'");
 
 if (!$stats) {
     // Обработка ошибки запроса
@@ -28,4 +28,3 @@ if ($data['total_deals'] > 0) {
 
 header('Content-Type: application/json');
 echo json_encode($data);
-?>

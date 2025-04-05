@@ -32,7 +32,7 @@ if (isset($_SESSION['user'])) {
         <nav class="side_bar_menu">
             <div class="side_bar_menu_top">
                 <div class="logo">
-                    <h2 style="width: fit-content;"> CRM</h2>
+                    <h2 style="width: fit-content;"><a href="analytics.php" style="color: black;">CRM</a> </h2>
                 </div>
                 <ul>
                     <!-- <li><a href="homepage.php">Рабочий стол</a></li> -->

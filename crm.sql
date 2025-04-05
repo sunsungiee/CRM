@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 04 2025 г., 22:49
+-- Время создания: Апр 05 2025 г., 05:23
 -- Версия сервера: 8.0.19
 -- Версия PHP: 8.0.1
 
@@ -51,11 +51,9 @@ CREATE TABLE `contacts` (
 --
 
 INSERT INTO `contacts` (`id`, `surname`, `name`, `email`, `phone`, `firm`) VALUES
-(1, 'Васильев', 'Василий', 'vas@mail', '+7(487)-484-49-74', ''),
 (2, 'Васильев', 'Григорий', 'aaa@tt', '890128567948', ''),
 (3, 'Антонов', 'Антон', 'anton@tt', '84629573847', ''),
 (4, 'Федоров', 'Федор', 'fedya@tt', '73947285483', ''),
-(5, '', '', '', '', ''),
 (6, 'Иванов', 'Иван', 'ivan3984@tt', '+7(373)-987-39-83', 'ИП Иванов'),
 (7, 'Сергеев', 'аа', 'ivan3984@tt', '4444444', 'ввв');
 
@@ -81,7 +79,9 @@ CREATE TABLE `deals` (
 --
 
 INSERT INTO `deals` (`id`, `user_id`, `client_id`, `subject`, `end_date`, `end_time`, `sum`, `phase_id`) VALUES
-(1, 6, 5, 'Продажа', '2025-04-30', '12:32:31', 1000, 1);
+(3, 6, 2, 'Продажа товара', '2025-04-18', '13:20:00', 150000, 4),
+(4, 6, 6, 'Подписание бумаг', '2025-04-23', '19:25:00', 150005, 1),
+(5, 6, 4, 'Продажа', '2025-04-12', '09:41:00', 150000, 4);
 
 -- --------------------------------------------------------
 
@@ -189,7 +189,6 @@ CREATE TABLE `tasks` (
 INSERT INTO `tasks` (`id`, `user_id`, `contact_id`, `subject`, `description`, `date`, `time`, `priority_id`, `status_id`) VALUES
 (1, 3, 2, 'тест', 'тест', '2025-03-25', '00:00:00', 1, 1),
 (29, 3, 4, 'Деловая встреча', 'Встреча с заказчиком', '2025-03-31', '00:00:00', 1, 1),
-(31, 3, 1, 'оаошао', 'оалшао', '8444-04-04', '00:00:00', 3, 1),
 (33, 3, 3, '12', '12', '2025-03-28', '17:24:00', 1, 1),
 (34, 6, NULL, 'd', 'd', NULL, NULL, 1, 1),
 (35, 6, NULL, 'в', 'в', NULL, NULL, 1, 1),
@@ -197,7 +196,8 @@ INSERT INTO `tasks` (`id`, `user_id`, `contact_id`, `subject`, `description`, `d
 (37, 6, 2, 'в', 'в', '2025-04-10', '00:24:00', 1, 2),
 (38, 6, 2, 'tgg', 'gjh', '2222-03-31', '03:59:00', 1, 2),
 (39, 6, NULL, 'd', 'd', '2025-04-09', '04:15:00', 1, 1),
-(40, 6, 2, 'Встреча с заказчиком', 'Встреча', '2025-04-17', '17:15:00', 1, 1);
+(41, 6, 2, 'Работа над проектом', 'Работа', '2025-04-24', '22:07:00', 1, 1),
+(42, 5, 4, 'dd', 'dd', '2025-04-24', '08:37:00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -225,7 +225,7 @@ INSERT INTO `users` (`id`, `surname`, `name`, `post`, `phone`, `email`, `login`,
 (3, 'Иванов', 'Иван', 'Директор', '398749847948', 'ivan@tt', 'ivan123', 'ivan', 1),
 (4, 'Сергеев', 'Сергей', 'Ген. директор', '838798749487', 'SERGEY@TT', 'user123', 'user123', 1),
 (5, 'Аленова', 'Алена', '333', '9749847847', 'alena@tt', 'alena', '333', 1),
-(6, '', '', '', '', '', 'user', 'user', 1);
+(6, 'Сидоров', 'Алексей', 'Менеджер', '39749874974', 'alex@mail.ru', 'user', 'user', 1);
 
 --
 -- Индексы сохранённых таблиц
@@ -307,13 +307,13 @@ ALTER TABLE `archive`
 -- AUTO_INCREMENT для таблицы `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `deals`
 --
 ALTER TABLE `deals`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `deal_phases`
@@ -343,7 +343,7 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT для таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
