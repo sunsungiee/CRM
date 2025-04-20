@@ -42,6 +42,9 @@ ORDER BY phase";
     <div class="header tasks">
         <h1>Сделки</h1>
         <button class="add_task" id="add_task">Добавить</button>
+        <a href="#" id="burger_open" class="burger_btn">
+            <img src="../../assets/img/icons/burger.svg" alt="Меню">
+        </a>
     </div>
     <hr>
     <div class="content_tasks">
@@ -113,6 +116,7 @@ include "deals_modal.php";
 
 <script src="../../assets/js/script.js"></script>
 <script src="../../assets/js/deals.js"></script>
+<script src="../../assets/js/burger.js"></script>
 </body>
 
 </html>
