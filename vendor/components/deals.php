@@ -41,10 +41,12 @@ ORDER BY phase";
 <div class="content tasks">
     <div class="header tasks">
         <h1>Сделки</h1>
-        <button class="add_task" id="add_task">Добавить</button>
-        <a href="#" id="burger_open" class="burger_btn">
-            <img src="../../assets/img/icons/burger.svg" alt="Меню">
-        </a>
+        <div class="header_btns">
+            <button class="add_task" id="add_task">Добавить</button>
+            <a href="#" id="burger_open" class="burger_btn">
+                <img src="../../assets/img/icons/burger.svg" alt="Меню">
+            </a>
+        </div>
     </div>
     <hr>
     <div class="content_tasks">

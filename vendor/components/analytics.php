@@ -16,6 +16,9 @@ if (isset($deal_sum) && $deal_sum != false) {
 
     <div class="header tasks">
         <h1>Аналитика</h1>
+        <a href="#" id="burger_open" class="burger_btn">
+            <img src="../../assets/img/icons/burger.svg" alt="Меню">
+        </a>
     </div>
     <hr>
     <section class="diagram">
@@ -149,6 +152,7 @@ if (isset($deal_sum) && $deal_sum != false) {
                 '<p class="error">Произошла ошибка при загрузке данных</p>';
         });
 </script>
+<script src="../../assets/js/burger.js"></script>
 
 
 </body>

@@ -42,7 +42,12 @@ ORDER BY task_date";
 <div class="content tasks">
     <div class="header tasks">
         <h1>Задачи</h1>
-        <button class="add_task" id="add_task">Добавить</button>
+        <div class="header_btns">
+            <button class="add_task" id="add_task">Добавить</button>
+            <a href="#" id="burger_open" class="burger_btn">
+                <img src="../../assets/img/icons/burger.svg" alt="Меню">
+            </a>
+        </div>
     </div>
     <hr>
     <div class="content_tasks">
@@ -106,6 +111,8 @@ include "tasks_modal.php";
 <script src="../../assets/js/jquery.maskedinput.min.js"></script>
 <script src="../../assets/js/script.js"></script>
 <script src="../../assets/js/tasks.js"></script>
+<script src="../../assets/js/burger.js"></script>
+
 </body>
 
 </html>

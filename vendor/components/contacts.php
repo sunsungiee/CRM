@@ -14,7 +14,12 @@ if (isset($_POST['contact_id'])) {
 <div class="content tasks">
     <div class="header tasks">
         <h1>Список контактов</h1>
-        <button class="add_task" id="add_task">Добавить</button>
+        <div class="header_btns">
+            <button class="add_task" id="add_task">Добавить</button>
+            <a href="#" id="burger_open" class="burger_btn">
+                <img src="../../assets/img/icons/burger.svg" alt="Меню">
+            </a>
+        </div>
     </div>
 
     <hr>
@@ -67,4 +72,6 @@ include "contacts_modal.php";
 <script>
     $('#phone').mask("+7(999)-999-99-99");
 </script>
+<script src="../../assets/js/burger.js"></script>
+
 </body>

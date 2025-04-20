@@ -36,6 +36,9 @@ ORDER BY task_date";
 <div class="content tasks">
     <div class="header tasks">
         <h1>Архив задач</h1>
+        <a href="#" id="burger_open" class="burger_btn">
+            <img src="../../assets/img/icons/burger.svg" alt="Меню">
+        </a>
     </div>
     <hr>
 
@@ -84,6 +87,8 @@ ORDER BY task_date";
 <script src="../../assets/js/jquery.maskedinput.min.js"></script>
 <script src="../../assets/js/script.js"></script>
 <script src="../../assets/js/archive.js"></script>
+<script src="../../assets/js/burger.js"></script>
+
 </body>
 
 </html>
