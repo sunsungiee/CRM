@@ -9,13 +9,54 @@
 
 body {
     height: 100vh;
-    background-color: rgba(223, 212, 197, 0.242);
+    width: 100%;
+    /* background-color: rgba(223, 212, 197, 0.242); */
     font-weight: 500;
     background-color: rgba(144, 0, 210, 0.042);
 }
 
 main {
     display: flex;
+}
+
+@media screen and (max-width: 1440px) {
+    .side_bar_menu {
+        display: block;
+    }
+
+    main {
+        max-width: 1440px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .side_bar_menu {
+        display: block;
+    }
+
+    main {
+        max-width: 1280px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .side_bar_menu {
+        display: none;
+    }
+
+    main {
+        max-width: 768px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .side_bar_menu {
+        display: none;
+    }
+
+    main {
+        max-width: 320px;
+    }
 }
 
 .container {
@@ -25,7 +66,7 @@ main {
 
 :root {
     --main: rgba(83, 0, 151, 0.071);
-    --details: rgb(30, 1, 133);
+    --details: rgba(30, 1, 133, 0.76);
     /* -- btn-bg: ; */
 }
 
@@ -36,14 +77,20 @@ a {
 /* оформление боковой навигации */
 .side_bar_menu {
     background-color: var(--main);
+    min-height: 100vh;
+    padding: 20px;
+    min-width: 15%;
+}
+
+.side_bar_menu_content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 40vh;
-    min-height: 100vh;
-    padding: 20px 130px 20px 20px;
-    /* width: 40vh; */
+    height: 95vh;
+    position: fixed;
+
 }
+
 
 .side_bar_menu ul {
     padding: 25px 0px;
@@ -241,11 +288,14 @@ a {
 }
 
 .tasks_menu li {
-    padding: 2px 8px;
+    padding: 10px 8px;
     border-radius: 20px;
     background-color: white;
 }
 
+/* .tasks_menu a {
+    padding: 10px 8px;
+} */
 
 .diagram {
     display: flex;

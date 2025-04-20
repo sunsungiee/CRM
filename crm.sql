@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Апр 05 2025 г., 05:23
--- Версия сервера: 8.0.19
--- Версия PHP: 8.0.1
+-- Хост: 127.0.0.1:3307
+-- Время создания: Апр 05 2025 г., 07:56
+-- Версия сервера: 5.7.39-log
+-- Версия PHP: 8.0.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `crm`
+-- База данных: `CRM`
 --
 
 -- --------------------------------------------------------
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `archive` (
-  `id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -38,13 +38,13 @@ CREATE TABLE `archive` (
 --
 
 CREATE TABLE `contacts` (
-  `id` int NOT NULL,
-  `surname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `firm` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(11) NOT NULL,
+  `surname` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `firm` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `contacts`
@@ -55,7 +55,8 @@ INSERT INTO `contacts` (`id`, `surname`, `name`, `email`, `phone`, `firm`) VALUE
 (3, 'Антонов', 'Антон', 'anton@tt', '84629573847', ''),
 (4, 'Федоров', 'Федор', 'fedya@tt', '73947285483', ''),
 (6, 'Иванов', 'Иван', 'ivan3984@tt', '+7(373)-987-39-83', 'ИП Иванов'),
-(7, 'Сергеев', 'аа', 'ivan3984@tt', '4444444', 'ввв');
+(7, 'Сергеев', 'Иван', 'ivan4444@tt', '4444444', 'ввв'),
+(10, 'Пользователев', 'Пользователь', 'user@tt', '+7(039)-894-84-98', 'ООО \"User\"');
 
 -- --------------------------------------------------------
 
@@ -64,15 +65,15 @@ INSERT INTO `contacts` (`id`, `surname`, `name`, `email`, `phone`, `firm`) VALUE
 --
 
 CREATE TABLE `deals` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `client_id` int NOT NULL,
-  `subject` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `subject` varchar(255) NOT NULL,
   `end_date` date NOT NULL,
   `end_time` time NOT NULL,
-  `sum` int NOT NULL,
-  `phase_id` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `sum` int(11) NOT NULL,
+  `phase_id` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `deals`
@@ -90,9 +91,9 @@ INSERT INTO `deals` (`id`, `user_id`, `client_id`, `subject`, `end_date`, `end_t
 --
 
 CREATE TABLE `deal_phases` (
-  `id` int NOT NULL,
-  `phase` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(11) NOT NULL,
+  `phase` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `deal_phases`
@@ -112,9 +113,9 @@ INSERT INTO `deal_phases` (`id`, `phase`) VALUES
 --
 
 CREATE TABLE `priorities` (
-  `id` int NOT NULL,
-  `priority` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(11) NOT NULL,
+  `priority` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `priorities`
@@ -132,9 +133,9 @@ INSERT INTO `priorities` (`id`, `priority`) VALUES
 --
 
 CREATE TABLE `roles` (
-  `id` int NOT NULL,
-  `role` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'user'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(11) NOT NULL,
+  `role` varchar(255) NOT NULL DEFAULT 'user'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `roles`
@@ -152,9 +153,9 @@ INSERT INTO `roles` (`id`, `role`) VALUES
 --
 
 CREATE TABLE `statuses` (
-  `id` int NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `statuses`
@@ -171,16 +172,16 @@ INSERT INTO `statuses` (`id`, `status`) VALUES
 --
 
 CREATE TABLE `tasks` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `contact_id` int DEFAULT '0',
-  `subject` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `contact_id` int(11) DEFAULT '0',
+  `subject` varchar(255) NOT NULL,
+  `description` text NOT NULL,
   `date` date DEFAULT NULL,
   `time` time DEFAULT NULL,
-  `priority_id` int NOT NULL,
-  `status_id` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `priority_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `tasks`
@@ -197,7 +198,14 @@ INSERT INTO `tasks` (`id`, `user_id`, `contact_id`, `subject`, `description`, `d
 (38, 6, 2, 'tgg', 'gjh', '2222-03-31', '03:59:00', 1, 2),
 (39, 6, NULL, 'd', 'd', '2025-04-09', '04:15:00', 1, 1),
 (41, 6, 2, 'Работа над проектом', 'Работа', '2025-04-24', '22:07:00', 1, 1),
-(42, 5, 4, 'dd', 'dd', '2025-04-24', '08:37:00', 1, 1);
+(42, 5, 4, 'dd', 'dd', '2025-04-24', '08:37:00', 1, 1),
+(43, 6, 2, 'Встреча с клиентом', 'Встреча', '2025-04-29', '10:32:00', 3, 1),
+(44, 6, 2, 'Работа над проектом', 'Работа', '2025-04-17', '11:58:00', 2, 1),
+(45, 6, 6, 'Разработка компонента', 'Разработка', '2025-04-23', NULL, 3, 2),
+(46, 6, 3, 'Разработка', 'Разработка', '2025-04-29', '12:02:00', 3, 2),
+(47, 6, 2, 'Встреча с клиентом', 'Встреча', '2025-04-18', NULL, 1, 1),
+(49, 6, 4, 'Обсуждение деталей сделки', 'Обсуждение', '2025-04-24', '13:05:00', 1, 1),
+(50, 6, 2, 'Обсуждение деталей сделки', 'Обсуждение деталей сделки', '2025-04-19', '09:05:00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -206,16 +214,16 @@ INSERT INTO `tasks` (`id`, `user_id`, `contact_id`, `subject`, `description`, `d
 --
 
 CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `surname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `post` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `login` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `role_id` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(11) NOT NULL,
+  `surname` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `post` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `login` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role_id` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `users`
@@ -301,55 +309,55 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `archive`
 --
 ALTER TABLE `archive`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `deals`
 --
 ALTER TABLE `deals`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `deal_phases`
 --
 ALTER TABLE `deal_phases`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `priorities`
 --
 ALTER TABLE `priorities`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `statuses`
 --
 ALTER TABLE `statuses`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

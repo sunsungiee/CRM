@@ -30,44 +30,46 @@ if (isset($_SESSION['user'])) {
 <body>
     <main>
         <nav class="side_bar_menu">
-            <div class="side_bar_menu_top">
-                <div class="logo">
-                    <h2 style="width: fit-content;"><a href="analytics.php" style="color: black;">CRM</a> </h2>
+            <div class="side_bar_menu_content">
+                <div class="side_bar_menu_top">
+                    <div class="logo">
+                        <h2 style="width: fit-content;"><a href="analytics.php" style="color: black;">CRM</a> </h2>
+                    </div>
+                    <ul>
+                        <!-- <li><a href="homepage.php">Рабочий стол</a></li> -->
+                        <li><a href="analytics.php">Аналитика</a></li>
+                        <li class="tasks" id="task_button"><a href="#">Задачи</a>
+                            <div class="tasks_menu" id="tasks_menu">
+                                <ul>
+                                    <li><a href="current_tasks.php">Текущие задачи</a></li>
+                                    <li><a href="acrchive.php">Архив задач</a></li>
+                                </ul>
+                            </div>
+                        </li>
+    
+                        <li><a href="deals.php">Сделки</a></li>
+                        <li><a href="contacts.php">Контакты</a></li>
+                        <!-- <li><a href="chats.php">Чаты</a></li> -->
+                    </ul>
                 </div>
                 <ul>
-                    <!-- <li><a href="homepage.php">Рабочий стол</a></li> -->
-                    <li><a href="analytics.php">Аналитика</a></li>
-                    <li class="tasks" id="task_button"><a href="#">Задачи</a>
-                        <div class="tasks_menu" id="tasks_menu">
-                            <ul>
-                                <li><a href="current_tasks.php">Текущие задачи</a></li>
-                                <li><a href="acrchive.php">Архив задач</a></li>
-                            </ul>
-                        </div>
+                    <li>
+                        <a href="#">
+                            <img src="" alt=""><?= $username; ?>
+                        </a>
+                        <a style="display: block;">
+                            <span style="color: gray; font-size: 12px;">
+                                <?= $userpost; ?>
+                            </span>
+                        </a>
                     </li>
-
-                    <li><a href="deals.php">Сделки</a></li>
-                    <li><a href="contacts.php">Контакты</a></li>
-                    <!-- <li><a href="chats.php">Чаты</a></li> -->
+                    <li>
+                        <a href="logout.php">
+                            <img src="#" alt="" class="logout_icon">Выйти
+                        </a>
+                    </li>
                 </ul>
             </div>
-            <ul>
-                <li>
-                    <a href="#">
-                        <img src="" alt=""><?= $username; ?>
-                    </a>
-                    <a style="display: block;">
-                        <span style="color: gray; font-size: 12px;">
-                            <?= $userpost; ?>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="logout.php">
-                        <img src="#" alt="" class="logout_icon">Выйти
-                    </a>
-                </li>
-            </ul>
         </nav>
 
         <script src="../../assets/js/jquery-3.7.1.min.js"></script>
