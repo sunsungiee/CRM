@@ -35,11 +35,11 @@ main div {
 
 @media (max-width: 1199px) {
     main {
-        max-width: 1024px;
+        max-width: 1199 px;
     }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1025px) {
     .side_bar_menu {
         display: none;
     }
@@ -47,7 +47,7 @@ main div {
         display: block;
     }
     main {
-        max-width: 768px;
+        max-width: 1025px;
     }
 }
 
